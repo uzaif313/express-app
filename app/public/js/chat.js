@@ -1,37 +1,44 @@
 var socket = io();
-var chatUsername = document.querySelector('#chat-username');
-var chatMessage = document.querySelector('#chat-message');
+	var chat_username = document.querySelector("#chat-username");
+		var chat_message =document.querySelector("#chat-message")
 
-socket.on('connect', function() {
-  var chatForm = document.forms.chatForm;
+socket.on('connect',function(){
+	var chat_form = document.forms.chatForm;
 
-  if (chatForm) {
-    chatForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      socket.emit('postMessage',{
-        username: chatUsername.value,
-        message: chatMessage.value,
-      });
-      chatMessage.value='';
-      chatMessage.focus();
-    }); //chatform event
+	if (chat_form) {
+	
+		chat_form.addEventListener('submit',function(e){
+			e.preventDefault();
+			
+			socket.emit('send_message',{
+				username:chat_username.value,
+				message:chat_message.value
+			});
 
-    socket.on('updateMessages', function(data) {
-      showMessage(data);
-    }); //updateMessages
-  } //chatform
-}); //socket
 
-function showMessage(data) {
-  var chatDisplay = document.querySelector('.chat-display');
-  var newMessage = document.createElement('p');
 
-  if (chatUsername.value == data.username) {
-    newMessage.className = 'bg-success chat-text';
-  } else {
-    newMessage.className = 'bg-info text-warning chat-text';
-  }
+			chat_message.value ='';
+			chat_message.focus();
+		});
 
-  newMessage.innerHTML = '<strong>' + data.username + '</strong>: ' + data.message;
-  chatDisplay.insertBefore(newMessage, chatDisplay.firstChild);
-}
+		socket.on("update_messages",function(data){
+			showMessage(data);
+		})
+
+	}	
+
+});
+
+	function showMessage(data){
+		var chat_display = document.querySelector(".chat-display");
+		var new_message = document.createElement("p");
+		if (chat_username.value == data.chat_username){
+			new_message.className = 'bg-warning chat-text';
+
+		}else{
+
+			new_message.className = 'bg-success chat-text';
+		}
+		new_message.innerHTML = '<strong>'+data.username+'</strong>: '+ data.message;
+		chat_display.insertBefore(new_message,chat_display.firstChild);
+	}

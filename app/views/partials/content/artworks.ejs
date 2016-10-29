@@ -1,0 +1,11 @@
+<article class="sidebar">
+            <h1 class="sidebar-title">ArtWork of all Speakers</h1>
+            <p class="sidebar-body">Wonderful Artwork</p>
+            <div class="pixgrid clearfix">
+              <% if (art_work.length > 0) {%>
+                  <% for (var i = 0; i < art_work.length; i++) {%>
+                    <img src="/images/artwork/<%=art_work[i]%>" alt="artwork"/> 
+                <%}%>
+              <%}%> 
+            </div>
+          </article>

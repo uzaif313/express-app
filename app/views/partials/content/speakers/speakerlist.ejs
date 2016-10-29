@@ -1,0 +1,45 @@
+<article class="speakerslist <% if (page_id == 'home'){%>jumbotron hidden-xs<%}%>">
+	<div class="container">
+		<div class="row">
+			<% speakers.forEach(function(item) { %>
+				<div class="<%if (page_id == 'home'){%>col-sm-4 text-center<%}else{%>col-sm-8<%}%>">
+
+
+				<h3 class="speakerslist-title">
+					<%= item.title %>
+				</h3>
+
+				<h5 class="speakerslist-name">
+					with
+					<a href="/speakers/<%= item.shortname%> ">
+						<%=item.name%>
+					</a>
+				</h5>
+
+				<p class="speakerlist-info">
+					<a href="/speakers/<%=item.shortname%>">
+						<%if (page_id == 'home'){%>	
+						<img class="speakerslist-img img-circle" src="/images/speakers/<%= item.shortname%>_tn.jpg" alt="photo name"/>
+						<%}%>
+						<% if(page_id == 'speakerlist') {%>
+							<img class="speakerslist-img img-circle pull-left" src="/images/speakers/<%= item.shortname%>_tn.jpg" alt="photo name"/>
+						<%}%>
+					</a>
+					
+					<%if (page_id == 'speaker'){%>	
+						<img class="speakerslist-img img-responsive" src="/images/speakers/<%= item.shortname%>.jpg" alt="photo name"/>
+					<%}%>	
+					<%if (page_id !== 'home'){%>
+						<%if (page_id == 'speakerlist'){%>
+							<%=item.summary%>
+						<%}else{%>
+							<%-item.description%>
+						<%}%>
+					<%}%>
+
+				</p>
+			</div>
+			<% }) %>
+		</div>
+	</div>
+</article>
